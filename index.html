@@ -7,376 +7,185 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy:    #0B2545;
-  --navy2:   #163A6B;
-  --blue:    #1B4F9B;
-  --yellow:  #F5C300;
-  --yellow2: #FFD740;
-  --orange:  #F58220;
-  --white:   #FFFFFF;
-  --offwhite:#F5F7FA;
-  --gray:    #6B7C93;
-  --lgray:   #E8EDF3;
-  --text:    #1A2E45;
-  --font:    'Nunito', sans-serif;
-  --body:    'Nunito Sans', sans-serif;
+  /* Connect brand palette */
+  --cx-orange:   #FF6B00;
+  --cx-orange2:  #FF8C33;
+  --cx-orange3:  #FFB370;
+  --cx-navy:     #0B2545;
+  --cx-navy2:    #163A6B;
+  --cx-white:    #FFFFFF;
+  --cx-offwhite: #FFF8F3;
+  --cx-light:    #FFE8D6;
+  --cx-gray:     #6B7C93;
+  --cx-lgray:    #F0F0F0;
+  --cx-text:     #1A2E45;
+  --font:        'Nunito', sans-serif;
+  --body:        'Nunito Sans', sans-serif;
 }
-
-*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; }
-body { background:var(--white); color:var(--text); font-family:var(--body); overflow-x:hidden; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cx-white);color:var(--cx-text);font-family:var(--body);overflow-x:hidden}
 
 /* ── HERO ── */
-.hero {
-  background: var(--navy);
-  min-height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 5rem 2rem 4rem;
-  position: relative; overflow: hidden;
-}
+.hero{background:var(--cx-navy);min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:5rem 2rem 4rem;position:relative;overflow:hidden}
+.hero-blob{position:absolute;border-radius:50%;pointer-events:none}
+.blob1{width:520px;height:520px;background:radial-gradient(circle,rgba(255,107,0,.15),transparent 70%);top:-120px;right:-100px;animation:float1 8s ease-in-out infinite}
+.blob2{width:320px;height:320px;background:radial-gradient(circle,rgba(255,107,0,.08),transparent 70%);bottom:-60px;left:-60px;animation:float2 10s ease-in-out infinite}
+.blob3{width:220px;height:220px;background:radial-gradient(circle,rgba(255,140,51,.06),transparent 70%);top:40%;left:40%;animation:float1 6s ease-in-out infinite reverse}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-15px,15px)}}
+.hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,107,0,.15);border:1px solid rgba(255,107,0,.4);color:var(--cx-orange2);font-family:var(--font);font-size:.8rem;font-weight:800;padding:.35rem 1rem;border-radius:30px;margin-bottom:2rem;letter-spacing:.04em;opacity:0;animation:popIn .6s .1s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes popIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+.hero h1{font-family:var(--font);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:var(--cx-white);line-height:1.1;margin-bottom:1.25rem;opacity:0;animation:slideUp .7s .25s ease forwards}
+.hero h1 .accent{color:var(--cx-orange)}
+.hero-sub{font-size:1.1rem;color:rgba(255,255,255,.7);font-weight:300;max-width:560px;line-height:1.8;margin-bottom:2.5rem;opacity:0;animation:slideUp .7s .4s ease forwards}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.hero-stats{display:flex;gap:2rem;flex-wrap:wrap;opacity:0;animation:slideUp .6s .55s ease forwards}
+.hstat{background:rgba(255,255,255,.07);border:1px solid rgba(255,107,0,.25);border-radius:14px;padding:1rem 1.5rem;text-align:center;backdrop-filter:blur(10px);transition:transform .2s,background .2s}
+.hstat:hover{transform:translateY(-4px);background:rgba(255,107,0,.12)}
+.hstat-val{font-family:var(--font);font-size:2rem;font-weight:900;color:var(--cx-orange);line-height:1}
+.hstat-label{font-size:.75rem;color:rgba(255,255,255,.6);margin-top:.3rem}
+.scroll-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:.5;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.scroll-cue span{width:1.5px;height:30px;background:var(--cx-orange)}
+.scroll-cue p{font-size:.65rem;color:var(--cx-white);letter-spacing:.1em;text-transform:uppercase}
 
-/* Animated background circles */
-.hero-blob {
-  position: absolute; border-radius: 50%;
-  pointer-events: none;
-}
-.blob1 { width:500px;height:500px; background:radial-gradient(circle, rgba(245,194,0,.1), transparent 70%); top:-100px;right:-100px; animation:float1 8s ease-in-out infinite; }
-.blob2 { width:300px;height:300px; background:radial-gradient(circle, rgba(27,79,155,.4), transparent 70%); bottom:-50px;left:-50px; animation:float2 10s ease-in-out infinite; }
-.blob3 { width:200px;height:200px; background:radial-gradient(circle, rgba(245,130,32,.08), transparent 70%); top:40%;left:40%; animation:float1 6s ease-in-out infinite reverse; }
-@keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-20px)} }
-@keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-15px,15px)} }
+/* ── SECTIONS ── */
+.section{padding:5rem 2rem}
+.section-inner{max-width:920px;margin:0 auto}
+.section-label{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font);font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--cx-orange);margin-bottom:.75rem}
+.section-label::before{content:'';width:20px;height:2px;background:var(--cx-orange);border-radius:2px}
+h2{font-family:var(--font);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;color:var(--cx-navy);line-height:1.15;margin-bottom:1rem}
+h2 em{color:var(--cx-orange);font-style:normal}
+.section-desc{font-size:1rem;color:var(--cx-gray);max-width:600px;line-height:1.8;margin-bottom:2.5rem}
+.problem-bg{background:var(--cx-offwhite)}
 
-.hero-inner { max-width:920px; margin:0 auto; position:relative; z-index:1; }
+/* ── PROBLEM CARDS ── */
+.problem-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+@media(max-width:600px){.problem-grid{grid-template-columns:1fr}}
+.problem-card{background:var(--cx-white);border-radius:16px;padding:1.5rem;border:1px solid var(--cx-lgray);box-shadow:0 2px 12px rgba(0,0,0,.05);display:flex;gap:1rem;align-items:flex-start;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s,box-shadow .2s}
+.problem-card.visible{opacity:1;transform:none}
+.problem-card:hover{box-shadow:0 8px 30px rgba(255,107,0,.12)}
+.problem-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#FFE8D6,#FFB370);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.problem-card h3{font-family:var(--font);font-size:.95rem;font-weight:800;color:var(--cx-navy);margin-bottom:.3rem}
+.problem-card p{font-size:.83rem;color:var(--cx-gray);line-height:1.6}
 
-.hero-badge {
-  display:inline-flex; align-items:center; gap:.5rem;
-  background:rgba(245,194,0,.15); border:1px solid rgba(245,194,0,.4);
-  color:var(--yellow); font-family:var(--font); font-size:.8rem; font-weight:800;
-  padding:.35rem 1rem; border-radius:30px; margin-bottom:2rem;
-  letter-spacing:.04em;
-  opacity:0; animation:popIn .6s .1s cubic-bezier(.34,1.56,.64,1) forwards;
-}
-@keyframes popIn { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
+/* ── STEPS ── */
+.steps-visual{display:flex;gap:0;margin:2rem 0;position:relative;align-items:flex-start}
+@media(max-width:640px){.steps-visual{flex-direction:column}}
+.step-item{flex:1;text-align:center;position:relative;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s}
+.step-item.visible{opacity:1;transform:none}
+.step-connector{flex:0 0 2rem;display:flex;align-items:center;justify-content:center;padding-top:1.6rem}
+.step-connector svg{color:var(--cx-orange3)}
+.step-circle{width:64px;height:64px;border-radius:50%;background:var(--cx-orange);color:var(--cx-white);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1rem;box-shadow:0 4px 20px rgba(255,107,0,.35);transition:transform .2s,box-shadow .2s}
+.step-item:hover .step-circle{transform:scale(1.1);box-shadow:0 8px 30px rgba(255,107,0,.5)}
+.step-num{position:absolute;top:-6px;right:calc(50% - 42px);width:20px;height:20px;border-radius:50%;background:var(--cx-navy);color:var(--cx-white);font-family:var(--font);font-size:.65rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+.step-label{font-family:var(--font);font-size:.9rem;font-weight:800;color:var(--cx-navy);margin-bottom:.3rem}
+.step-desc{font-size:.78rem;color:var(--cx-gray);line-height:1.5;max-width:130px;margin:0 auto}
+.step-time{display:inline-block;margin-top:.5rem;font-family:var(--font);font-size:.7rem;font-weight:800;color:var(--cx-orange);background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.2);padding:.2rem .55rem;border-radius:20px}
 
-.hero h1 {
-  font-family: var(--font);
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 900;
-  color: var(--white);
-  line-height: 1.1;
-  margin-bottom: 1.25rem;
-  opacity:0; animation: slideUp .7s .25s ease forwards;
-}
-.hero h1 .accent { color:var(--yellow); }
+/* ── AI BANNER ── */
+.ai-banner{background:linear-gradient(135deg,var(--cx-navy),var(--cx-navy2));border-radius:20px;padding:2.5rem 2rem;display:flex;gap:2rem;align-items:center;margin:2rem 0;box-shadow:0 8px 40px rgba(255,107,0,.15);position:relative;overflow:hidden}
+.ai-banner::before{content:'';position:absolute;right:-60px;top:-60px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,0,.15),transparent 70%)}
+.ai-icon-big{font-size:3.5rem;flex-shrink:0;filter:drop-shadow(0 4px 12px rgba(255,107,0,.4))}
+.ai-banner h3{font-family:var(--font);font-size:1.3rem;font-weight:900;color:var(--cx-white);margin-bottom:.5rem}
+.ai-banner p{font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.7}
+.ai-banner strong{color:var(--cx-orange);font-weight:700}
 
-.hero-sub {
-  font-size: 1.1rem; color: rgba(255,255,255,.7);
-  font-weight: 300; max-width: 560px; line-height:1.8;
-  margin-bottom: 2.5rem;
-  opacity:0; animation: slideUp .7s .4s ease forwards;
-}
-
-@keyframes slideUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
-
-/* Hero stats row */
-.hero-stats {
-  display: flex; gap: 2rem; flex-wrap: wrap;
-  opacity:0; animation: slideUp .6s .55s ease forwards;
-}
-.hstat {
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 14px; padding: 1rem 1.5rem; text-align:center;
-  backdrop-filter: blur(10px);
-  transition: transform .2s, background .2s;
-}
-.hstat:hover { transform:translateY(-4px); background:rgba(255,255,255,.12); }
-.hstat-val { font-family:var(--font); font-size:2rem; font-weight:900; color:var(--yellow); line-height:1; }
-.hstat-label { font-size:.75rem; color:rgba(255,255,255,.6); margin-top:.3rem; }
-
-/* scroll cue */
-.scroll-cue { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.4rem; opacity:.5; animation:bounce 2s infinite; }
-@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
-.scroll-cue span { width:1.5px; height:30px; background:var(--yellow); }
-.scroll-cue p { font-size:.65rem; color:var(--white); letter-spacing:.1em; text-transform:uppercase; }
-
-/* ── SECTION WRAPPER ── */
-.section { padding: 5rem 2rem; }
-.section-inner { max-width:920px; margin:0 auto; }
-
-.section-label {
-  display:inline-flex; align-items:center; gap:.5rem;
-  font-family:var(--font); font-size:.72rem; font-weight:800;
-  letter-spacing:.1em; text-transform:uppercase;
-  color:var(--blue); margin-bottom:.75rem;
-}
-.section-label::before { content:''; width:20px; height:2px; background:var(--yellow); border-radius:2px; }
-
-h2 {
-  font-family:var(--font); font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:900;
-  color:var(--navy); line-height:1.15; margin-bottom:1rem;
-}
-h2 em { color:var(--blue); font-style:normal; }
-.section-desc { font-size:1rem; color:var(--gray); max-width:600px; line-height:1.8; margin-bottom:2.5rem; }
-
-/* ── PROBLEM SECTION ── */
-.problem-bg { background:var(--offwhite); }
-
-.problem-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.25rem; }
-@media(max-width:600px){ .problem-grid{grid-template-columns:1fr;} }
-
-.problem-card {
-  background:var(--white); border-radius:16px;
-  padding:1.5rem; border:1px solid var(--lgray);
-  box-shadow: 0 2px 12px rgba(0,0,0,.05);
-  display:flex; gap:1rem; align-items:flex-start;
-  opacity:0; transform:translateY(20px);
-  transition: opacity .5s, transform .5s, box-shadow .2s;
-}
-.problem-card.visible { opacity:1; transform:none; }
-.problem-card:hover { box-shadow:0 8px 30px rgba(0,0,0,.1); }
-.problem-icon {
-  width:48px; height:48px; border-radius:12px;
-  background:linear-gradient(135deg,#FFE8E8,#FFB8B8);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.4rem; flex-shrink:0;
-}
-.problem-card h3 { font-family:var(--font); font-size:.95rem; font-weight:800; color:var(--navy); margin-bottom:.3rem; }
-.problem-card p { font-size:.83rem; color:var(--gray); line-height:1.6; }
-
-/* ── HOW IT WORKS SECTION ── */
-.steps-visual { display:flex; gap:0; margin:2rem 0; position:relative; align-items:flex-start; }
-@media(max-width:640px){ .steps-visual{flex-direction:column;} }
-
-.step-item {
-  flex:1; text-align:center; position:relative;
-  opacity:0; transform:translateY(20px);
-  transition:opacity .5s, transform .5s;
-}
-.step-item.visible { opacity:1; transform:none; }
-
-.step-connector {
-  flex:0 0 2rem; display:flex; align-items:center; justify-content:center;
-  padding-top:1.6rem;
-}
-.step-connector svg { color:var(--lgray); }
-
-.step-circle {
-  width:64px; height:64px; border-radius:50%;
-  background:var(--navy); color:var(--yellow);
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.6rem; margin:0 auto 1rem;
-  box-shadow:0 4px 20px rgba(11,37,69,.25);
-  transition:transform .2s, box-shadow .2s;
-}
-.step-item:hover .step-circle { transform:scale(1.1); box-shadow:0 8px 30px rgba(11,37,69,.35); }
-.step-num {
-  position:absolute; top:-6px; right:calc(50% - 42px);
-  width:20px; height:20px; border-radius:50%;
-  background:var(--yellow); color:var(--navy);
-  font-family:var(--font); font-size:.65rem; font-weight:900;
-  display:flex; align-items:center; justify-content:center;
-}
-.step-label { font-family:var(--font); font-size:.9rem; font-weight:800; color:var(--navy); margin-bottom:.3rem; }
-.step-desc { font-size:.78rem; color:var(--gray); line-height:1.5; max-width:130px; margin:0 auto; }
-.step-time {
-  display:inline-block; margin-top:.5rem;
-  font-family:var(--font); font-size:.7rem; font-weight:800;
-  color:var(--blue); background:rgba(27,79,155,.08);
-  border:1px solid rgba(27,79,155,.15);
-  padding:.2rem .55rem; border-radius:20px;
-}
-
-/* ── AI HIGHLIGHT ── */
-.ai-banner {
-  background:linear-gradient(135deg, var(--navy), var(--navy2));
-  border-radius:20px; padding:2.5rem 2rem;
-  display:flex; gap:2rem; align-items:center;
-  margin:2rem 0;
-  box-shadow:0 8px 40px rgba(11,37,69,.25);
-  position:relative; overflow:hidden;
-}
-.ai-banner::before {
-  content:'';
-  position:absolute; right:-60px; top:-60px;
-  width:250px; height:250px; border-radius:50%;
-  background:radial-gradient(circle,rgba(245,194,0,.12),transparent 70%);
-}
-.ai-icon-big { font-size:3.5rem; flex-shrink:0; filter:drop-shadow(0 4px 12px rgba(245,194,0,.4)); }
-.ai-banner h3 { font-family:var(--font); font-size:1.3rem; font-weight:900; color:var(--white); margin-bottom:.5rem; }
-.ai-banner p { font-size:.9rem; color:rgba(255,255,255,.7); line-height:1.7; }
-.ai-banner strong { color:var(--yellow); font-weight:700; }
-
-/* ── RESULTS SECTION ── */
-.results-bg { background:var(--navy); }
-.results-bg h2 { color:var(--white); }
-.results-bg .section-label { color:var(--yellow2); }
-.results-bg .section-label::before { background:var(--yellow); }
-.results-bg .section-desc { color:rgba(255,255,255,.6); }
-
-.kpi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-bottom:2rem; }
-@media(max-width:600px){ .kpi-grid{grid-template-columns:1fr;} }
-
-.kpi-card {
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:16px; padding:1.75rem 1.25rem; text-align:center;
-  backdrop-filter:blur(10px);
-  opacity:0; transform:scale(.9);
-  transition: opacity .5s, transform .5s, background .2s, box-shadow .2s;
-}
-.kpi-card.visible { opacity:1; transform:scale(1); }
-.kpi-card:hover { background:rgba(255,255,255,.12); transform:translateY(-4px); box-shadow:0 12px 30px rgba(0,0,0,.2); }
-.kpi-val { font-family:var(--font); font-size:2.6rem; font-weight:900; color:var(--yellow); line-height:1; }
-.kpi-unit { font-size:1.1rem; }
-.kpi-label { font-family:var(--font); font-size:.85rem; font-weight:700; color:var(--white); margin:.5rem 0 .2rem; }
-.kpi-sub { font-size:.75rem; color:rgba(255,255,255,.45); }
-
-/* Time breakdown */
-.time-breakdown {
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:16px; padding:1.5rem 1.75rem;
-}
-.tb-title { font-family:var(--font); font-size:.75rem; font-weight:800; color:var(--yellow); letter-spacing:.08em; text-transform:uppercase; margin-bottom:1rem; }
-.tb-row {
-  display:flex; align-items:center; gap:1rem; margin-bottom:.75rem;
-  opacity:0; transition:opacity .5s;
-}
-.tb-row.visible { opacity:1; }
-.tb-label { font-size:.82rem; color:rgba(255,255,255,.7); min-width:160px; }
-.tb-bar-track { flex:1; height:8px; background:rgba(255,255,255,.08); border-radius:4px; overflow:hidden; }
-.tb-bar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--yellow),var(--orange)); width:0; transition:width 1s ease; }
-.tb-time { font-family:var(--font); font-size:.78rem; font-weight:800; color:var(--yellow); min-width:40px; text-align:right; }
+/* ── RESULTS ── */
+.results-bg{background:var(--cx-navy)}
+.results-bg h2{color:var(--cx-white)}
+.results-bg .section-label{color:var(--cx-orange2)}
+.results-bg .section-label::before{background:var(--cx-orange)}
+.results-bg .section-desc{color:rgba(255,255,255,.6)}
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem}
+@media(max-width:600px){.kpi-grid{grid-template-columns:1fr}}
+.kpi-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,107,0,.2);border-radius:16px;padding:1.75rem 1.25rem;text-align:center;backdrop-filter:blur(10px);opacity:0;transform:scale(.9);transition:opacity .5s,transform .5s,background .2s,box-shadow .2s}
+.kpi-card.visible{opacity:1;transform:scale(1)}
+.kpi-card:hover{background:rgba(255,107,0,.1);transform:translateY(-4px);box-shadow:0 12px 30px rgba(255,107,0,.2)}
+.kpi-val{font-family:var(--font);font-size:2.6rem;font-weight:900;color:var(--cx-orange);line-height:1}
+.kpi-unit{font-size:1.1rem}
+.kpi-label{font-family:var(--font);font-size:.85rem;font-weight:700;color:var(--cx-white);margin:.5rem 0 .2rem}
+.kpi-sub{font-size:.75rem;color:rgba(255,255,255,.4)}
+.time-breakdown{background:rgba(255,255,255,.05);border:1px solid rgba(255,107,0,.15);border-radius:16px;padding:1.5rem 1.75rem}
+.tb-title{font-family:var(--font);font-size:.75rem;font-weight:800;color:var(--cx-orange);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.tb-row{display:flex;align-items:center;gap:1rem;margin-bottom:.75rem;opacity:0;transition:opacity .5s}
+.tb-row.visible{opacity:1}
+.tb-label{font-size:.82rem;color:rgba(255,255,255,.7);min-width:160px}
+.tb-bar-track{flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.tb-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--cx-orange),var(--cx-orange3));width:0;transition:width 1s ease}
+.tb-time{font-family:var(--font);font-size:.78rem;font-weight:800;color:var(--cx-orange);min-width:40px;text-align:right}
 
 /* ── BENEFITS ── */
-.benefits-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
-@media(max-width:700px){ .benefits-grid{grid-template-columns:1fr;} }
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+@media(max-width:700px){.benefits-grid{grid-template-columns:1fr}}
+.benefit-card{background:var(--cx-white);border-radius:16px;padding:1.75rem 1.5rem;border:1px solid var(--cx-lgray);box-shadow:0 2px 12px rgba(0,0,0,.05);opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s,box-shadow .2s}
+.benefit-card.visible{opacity:1;transform:none}
+.benefit-card:hover{transform:translateY(-6px);box-shadow:0 12px 35px rgba(255,107,0,.12)}
+.benefit-card-top{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.benefit-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--cx-orange),var(--cx-orange2));display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.benefit-card h3{font-family:var(--font);font-size:.95rem;font-weight:800;color:var(--cx-navy)}
+.benefit-card p{font-size:.83rem;color:var(--cx-gray);line-height:1.65}
 
-.benefit-card {
-  background:var(--white); border-radius:16px;
-  padding:1.75rem 1.5rem; border:1px solid var(--lgray);
-  box-shadow:0 2px 12px rgba(0,0,0,.05);
-  opacity:0; transform:translateY(20px);
-  transition: opacity .5s, transform .5s, box-shadow .2s;
-}
-.benefit-card.visible { opacity:1; transform:none; }
-.benefit-card:hover { transform:translateY(-6px); box-shadow:0 12px 35px rgba(0,0,0,.1); }
-.benefit-card-top { display:flex; align-items:center; gap:.75rem; margin-bottom:.75rem; }
-.benefit-icon {
-  width:44px; height:44px; border-radius:12px;
-  background:linear-gradient(135deg,var(--navy),var(--blue));
-  display:flex; align-items:center; justify-content:center;
-  font-size:1.2rem; flex-shrink:0;
-}
-.benefit-card h3 { font-family:var(--font); font-size:.95rem; font-weight:800; color:var(--navy); }
-.benefit-card p { font-size:.83rem; color:var(--gray); line-height:1.65; }
+/* ── VS GRID ── */
+.vs-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:1.5rem;align-items:center;margin:2rem 0}
+@media(max-width:640px){.vs-grid{grid-template-columns:1fr}.vs-sep{display:none}}
+.vs-card{border-radius:16px;padding:1.5rem}
+.vs-card.before{background:#FFF5F5;border:1px solid #FFD0D0}
+.vs-card.after{background:rgba(255,107,0,.05);border:2px solid var(--cx-orange)}
+.vs-title{font-family:var(--font);font-size:.75rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.vs-card.before .vs-title{color:#CC3333}
+.vs-card.after .vs-title{color:var(--cx-orange)}
+.vs-item{display:flex;gap:.65rem;align-items:flex-start;margin-bottom:.65rem;font-size:.83rem;line-height:1.5}
+.vs-dot{width:8px;height:8px;border-radius:50%;margin-top:.35rem;flex-shrink:0}
+.vs-card.before .vs-dot{background:#FF5A5F}
+.vs-card.after .vs-dot{background:var(--cx-orange)}
+.vs-sep{text-align:center}
+.vs-sep-circle{width:44px;height:44px;border-radius:50%;background:var(--cx-orange);color:var(--cx-white);font-family:var(--font);font-size:1.2rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 4px 16px rgba(255,107,0,.35)}
 
-/* ── CLOSING CTA ── */
-.cta-section { background:linear-gradient(135deg,var(--yellow),var(--orange)); padding:4rem 2rem; text-align:center; }
-.cta-section h2 { color:var(--navy); font-size:clamp(1.6rem,4vw,2.5rem); }
-.cta-section p { color:rgba(11,37,69,.7); font-size:1rem; margin-top:.75rem; max-width:520px; margin-left:auto; margin-right:auto; }
-.cta-logo { font-family:var(--font); font-size:1.8rem; font-weight:900; color:var(--navy); margin-bottom:.5rem; }
+/* ── INFRA ── */
+.infra-btns{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.infra-btn{font-family:var(--font);font-size:.78rem;font-weight:700;padding:.5rem 1.1rem;border-radius:30px;border:1.5px solid var(--cx-lgray);background:var(--cx-white);color:var(--cx-gray);cursor:pointer;transition:all .2s}
+.infra-btn:hover{border-color:var(--cx-orange);color:var(--cx-orange)}
+.infra-btn.active{background:var(--cx-orange);color:var(--cx-white);border-color:var(--cx-orange)}
+.infra-info{display:flex;align-items:flex-start;gap:1rem;background:var(--cx-white);border:1px solid var(--cx-lgray);border-left:4px solid var(--cx-orange);border-radius:0 12px 12px 0;padding:1rem 1.25rem;margin-bottom:1.5rem;min-height:72px;transition:border-color .3s}
+.infra-info-icon{font-size:1.6rem;flex-shrink:0;margin-top:.1rem}
+.infra-info-title{font-family:var(--font);font-size:.95rem;font-weight:800;color:var(--cx-navy);margin-bottom:.3rem}
+.infra-info-desc{font-size:.83rem;color:var(--cx-gray);line-height:1.6}
+.infra-diagram-wrap{background:var(--cx-white);border:1px solid var(--cx-lgray);border-radius:16px;padding:1.25rem;overflow-x:auto;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.infra-legend{display:flex;gap:1.25rem;flex-wrap:wrap;margin-top:1.25rem;padding:1rem 1.25rem;background:var(--cx-white);border:1px solid var(--cx-lgray);border-radius:12px}
+.ileg{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--cx-gray)}
+.ileg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.inode rect{transition:filter .2s,stroke-width .2s}
+.inode:hover rect{filter:brightness(.93)}
+.inode.iselected rect{stroke-width:2.5 !important}
+@keyframes idash{to{stroke-dashoffset:-20}}
+.iflow{animation:idash 2s linear infinite}
+.iflow.ifast{animation-duration:1s}
+.iflow.islow{animation-duration:3s}
+.iflow.ipaused{animation-play-state:paused;opacity:.15}
 
-/* ── INFRA DIAGRAM ── */
-.infra-btns { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:1.25rem; }
-.infra-btn {
-  font-family:var(--font); font-size:.78rem; font-weight:700;
-  padding:.5rem 1.1rem; border-radius:30px;
-  border:1.5px solid var(--lgray);
-  background:var(--white); color:var(--gray);
-  cursor:pointer; transition:all .2s;
-}
-.infra-btn:hover { border-color:var(--blue); color:var(--blue); }
-.infra-btn.active { background:var(--navy); color:var(--yellow); border-color:var(--navy); }
-
-.infra-info {
-  display:flex; align-items:flex-start; gap:1rem;
-  background:var(--white); border:1px solid var(--lgray);
-  border-left:4px solid var(--blue);
-  border-radius:0 12px 12px 0;
-  padding:1rem 1.25rem;
-  margin-bottom:1.5rem;
-  min-height:72px;
-  transition:border-color .3s;
-}
-.infra-info-icon { font-size:1.6rem; flex-shrink:0; margin-top:.1rem; }
-.infra-info-title { font-family:var(--font); font-size:.95rem; font-weight:800; color:var(--navy); margin-bottom:.3rem; }
-.infra-info-desc { font-size:.83rem; color:var(--gray); line-height:1.6; }
-
-.infra-diagram-wrap {
-  background:var(--white); border:1px solid var(--lgray);
-  border-radius:16px; padding:1.25rem;
-  overflow-x:auto;
-  box-shadow:0 4px 20px rgba(0,0,0,.06);
-}
-
-.inode rect { transition:filter .2s, stroke-width .2s; }
-.inode:hover rect { filter:brightness(.93); }
-.inode.iselected rect { stroke-width:2.5 !important; }
-
-@keyframes idash { to { stroke-dashoffset:-20; } }
-.iflow { animation:idash 2s linear infinite; }
-.iflow.ifast { animation-duration:1s; }
-.iflow.islow { animation-duration:3s; }
-.iflow.ipaused { animation-play-state:paused; opacity:.15; }
-
-.infra-legend {
-  display:flex; gap:1.25rem; flex-wrap:wrap;
-  margin-top:1.25rem; padding:1rem 1.25rem;
-  background:var(--white); border:1px solid var(--lgray);
-  border-radius:12px;
-}
-.ileg { display:flex; align-items:center; gap:.5rem; font-size:.78rem; color:var(--gray); }
-.ileg-dot { width:12px; height:12px; border-radius:3px; flex-shrink:0; }
+/* ── CTA ── */
+.cta-section{background:linear-gradient(135deg,var(--cx-orange),#FF9A40);padding:4rem 2rem;text-align:center}
+.cta-section h2{color:var(--cx-navy);font-size:clamp(1.6rem,4vw,2.5rem)}
+.cta-section p{color:rgba(11,37,69,.7);font-size:1rem;margin-top:.75rem;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-logo{font-family:var(--font);font-size:1.8rem;font-weight:900;color:var(--cx-navy);margin-bottom:.5rem}
 
 /* ── FOOTER ── */
-footer {
-  background:var(--navy); padding:2rem;
-  display:flex; justify-content:space-between; flex-wrap:wrap; gap:.75rem;
-  font-size:.75rem; color:rgba(255,255,255,.35);
-  align-items:center;
-}
-.footer-logo { font-family:var(--font); font-size:1.1rem; font-weight:900; color:var(--white); }
-.footer-logo span { color:var(--yellow); }
+footer{background:var(--cx-navy);padding:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;font-size:.75rem;color:rgba(255,255,255,.35);align-items:center}
+.footer-logo{font-family:var(--font);font-size:1.1rem;font-weight:900;color:var(--cx-white)}
+.footer-logo span{color:var(--cx-orange)}
 
 /* ── REVEAL ── */
-.reveal { opacity:0; transform:translateY(20px); transition:opacity .6s, transform .6s; }
-.reveal.visible { opacity:1; transform:none; }
-
-/* ── COMPARISON ── */
-.vs-grid {
-  display:grid; grid-template-columns:1fr auto 1fr;
-  gap:1.5rem; align-items:center; margin:2rem 0;
-}
-@media(max-width:640px){ .vs-grid{grid-template-columns:1fr;} .vs-sep{display:none;} }
-
-.vs-card { border-radius:16px; padding:1.5rem; }
-.vs-card.before { background:#FFF5F5; border:1px solid #FFD0D0; }
-.vs-card.after  { background:rgba(27,79,155,.06); border:2px solid var(--blue); }
-.vs-title { font-family:var(--font); font-size:.75rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; margin-bottom:1rem; }
-.vs-card.before .vs-title { color:#CC3333; }
-.vs-card.after  .vs-title { color:var(--blue); }
-.vs-item { display:flex; gap:.65rem; align-items:flex-start; margin-bottom:.65rem; font-size:.83rem; line-height:1.5; }
-.vs-dot { width:8px; height:8px; border-radius:50%; margin-top:.35rem; flex-shrink:0; }
-.vs-card.before .vs-dot { background:#FF5A5F; }
-.vs-card.after  .vs-dot { background:var(--blue); }
-.vs-sep { text-align:center; }
-.vs-sep-circle {
-  width:44px; height:44px; border-radius:50%;
-  background:var(--navy); color:var(--yellow);
-  font-family:var(--font); font-size:1.2rem; font-weight:900;
-  display:flex; align-items:center; justify-content:center;
-  margin:0 auto; box-shadow:0 4px 16px rgba(11,37,69,.25);
-}
-
-/* NUMBERS ANIMATION */
-.num-anim { display:inline; }
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:none}
+.num-anim{display:inline}
 </style>
 </head>
 <body>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-blob blob1"></div>
   <div class="hero-blob blob2"></div>
@@ -386,37 +195,21 @@ footer {
     <h1>Tus datos de cartera,<br><span class="accent">listos en 32 segundos.</span></h1>
     <p class="hero-sub">KAI es la plataforma que automatiza completamente el ingreso de datos de clientes en Connect — sin correos manuales, sin errores humanos, con Inteligencia Artificial.</p>
     <div class="hero-stats">
-      <div class="hstat">
-        <div class="hstat-val">32s</div>
-        <div class="hstat-label">De archivo a datos listos</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-val">17K+</div>
-        <div class="hstat-label">Registros por carga</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-val">0</div>
-        <div class="hstat-label">Intervenciones humanas</div>
-      </div>
-      <div class="hstat">
-        <div class="hstat-val">24/7</div>
-        <div class="hstat-label">Operación automática</div>
-      </div>
+      <div class="hstat"><div class="hstat-val">32s</div><div class="hstat-label">De archivo a datos listos</div></div>
+      <div class="hstat"><div class="hstat-val">17K+</div><div class="hstat-label">Registros por carga</div></div>
+      <div class="hstat"><div class="hstat-val">0</div><div class="hstat-label">Intervenciones humanas</div></div>
+      <div class="hstat"><div class="hstat-val">24/7</div><div class="hstat-label">Operación automática</div></div>
     </div>
   </div>
-  <div class="scroll-cue">
-    <p>explorar</p>
-    <span></span>
-  </div>
+  <div class="scroll-cue"><p>explorar</p><span></span></div>
 </section>
 
-<!-- ═══ PROBLEMA ═══ -->
+<!-- PROBLEMA -->
 <section class="section problem-bg">
   <div class="section-inner">
     <div class="section-label reveal">El reto que resolvimos</div>
     <h2 class="reveal">Así era el proceso <em>antes de KAI</em></h2>
     <p class="section-desc reveal">Cada vez que llegaba una nueva cartera de clientes, el equipo debía repetir una serie de pasos manuales que consumían tiempo y generaban errores.</p>
-
     <div class="problem-grid">
       <div class="problem-card"><div class="problem-icon">⏱️</div><div><h3>Horas de espera</h3><p>Revisar correos, descargar archivos y reenviarlos al equipo correcto tomaba horas — tiempo que podría invertirse en atender clientes.</p></div></div>
       <div class="problem-card"><div class="problem-icon">❌</div><div><h3>Formatos distintos</h3><p>Cada proveedor envía sus archivos de forma diferente. Mapearlo manualmente era lento y propenso a errores costosos.</p></div></div>
@@ -426,68 +219,41 @@ footer {
   </div>
 </section>
 
-<!-- ═══ CÓMO FUNCIONA ═══ -->
+<!-- CÓMO FUNCIONA -->
 <section class="section">
   <div class="section-inner">
     <div class="section-label reveal">La solución</div>
     <h2 class="reveal">¿Cómo funciona <em>KAI</em>?</h2>
     <p class="section-desc reveal">Desde que llega un archivo hasta que los datos están disponibles, KAI hace todo automáticamente — en menos de un minuto.</p>
-
     <div class="steps-visual">
       <div class="step-item">
-        <div style="position:relative;display:inline-block">
-          <div class="step-circle">📩</div>
-          <div class="step-num">1</div>
-        </div>
+        <div style="position:relative;display:inline-block"><div class="step-circle">📩</div><div class="step-num">1</div></div>
         <div class="step-label">Llega el archivo</div>
         <div class="step-desc">Por correo corporativo o sistema del proveedor</div>
         <div class="step-time">automático</div>
       </div>
-
-      <div class="step-connector">
-        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      </div>
-
+      <div class="step-connector"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="step-item">
-        <div style="position:relative;display:inline-block">
-          <div class="step-circle">🤖</div>
-          <div class="step-num">2</div>
-        </div>
+        <div style="position:relative;display:inline-block"><div class="step-circle">🤖</div><div class="step-num">2</div></div>
         <div class="step-label">IA interpreta</div>
         <div class="step-desc">Entiende el formato sin importar cómo venga</div>
         <div class="step-time">~10 seg</div>
       </div>
-
-      <div class="step-connector">
-        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      </div>
-
+      <div class="step-connector"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="step-item">
-        <div style="position:relative;display:inline-block">
-          <div class="step-circle">✅</div>
-          <div class="step-num">3</div>
-        </div>
+        <div style="position:relative;display:inline-block"><div class="step-circle">✅</div><div class="step-num">3</div></div>
         <div class="step-label">Valida calidad</div>
         <div class="step-desc">Elimina duplicados y verifica integridad</div>
         <div class="step-time">~10 seg</div>
       </div>
-
-      <div class="step-connector">
-        <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-      </div>
-
+      <div class="step-connector"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
       <div class="step-item">
-        <div style="position:relative;display:inline-block">
-          <div class="step-circle">📊</div>
-          <div class="step-num">4</div>
-        </div>
+        <div style="position:relative;display:inline-block"><div class="step-circle">📊</div><div class="step-num">4</div></div>
         <div class="step-label">Listo para usar</div>
         <div class="step-desc">Datos disponibles para reportes y decisiones</div>
         <div class="step-time">~32 seg total</div>
       </div>
     </div>
-
-    <!-- AI Highlight -->
     <div class="ai-banner reveal">
       <div class="ai-icon-big">🧠</div>
       <div>
@@ -495,8 +261,6 @@ footer {
         <p>Antes, cada proveedor requería semanas de desarrollo para adaptar su formato. Con KAI, la <strong>Inteligencia Artificial interpreta automáticamente</strong> cualquier estructura de archivo en menos de 10 segundos. Agregar un nuevo cliente es cuestión de horas, no semanas.</p>
       </div>
     </div>
-
-    <!-- VS comparison -->
     <div class="vs-grid reveal">
       <div class="vs-card before">
         <div class="vs-title">❌ Antes de KAI</div>
@@ -506,9 +270,7 @@ footer {
         <div class="vs-item"><div class="vs-dot"></div><span>Sin historial ni auditoría</span></div>
         <div class="vs-item"><div class="vs-dot"></div><span>Equipo dedicado a tareas repetitivas</span></div>
       </div>
-      <div class="vs-sep">
-        <div class="vs-sep-circle">→</div>
-      </div>
+      <div class="vs-sep"><div class="vs-sep-circle">→</div></div>
       <div class="vs-card after">
         <div class="vs-title">✅ Con KAI</div>
         <div class="vs-item"><div class="vs-dot"></div><span>32 segundos de inicio a fin</span></div>
@@ -521,37 +283,34 @@ footer {
   </div>
 </section>
 
-<!-- ═══ RESULTADOS ═══ -->
+<!-- RESULTADOS -->
 <section class="section results-bg" id="results">
   <div class="section-inner">
     <div class="section-label">Resultados reales</div>
     <h2 class="reveal">Caso real: <em>procesamiento en producción</em></h2>
     <p class="section-desc reveal">El 18 de marzo de 2026 procesamos una cartera completa. Estos son los resultados reales.</p>
-
     <div class="kpi-grid" id="kpi-grid">
-      <div class="kpi-card"><div class="kpi-val"><span class="num-anim" data-val="32" data-dec="0">32</span><span class="kpi-unit"> seg</span></div><div class="kpi-label">Tiempo total</div><div class="kpi-sub">De archivo a datos disponibles</div></div>
-      <div class="kpi-card"><div class="kpi-val"><span class="num-anim" data-val="17088" data-dec="0">17,088</span></div><div class="kpi-label">Registros procesados</div><div class="kpi-sub">Sin un solo error</div></div>
+      <div class="kpi-card"><div class="kpi-val"><span class="num-anim" data-val="32">32</span><span class="kpi-unit"> seg</span></div><div class="kpi-label">Tiempo total</div><div class="kpi-sub">De archivo a datos disponibles</div></div>
+      <div class="kpi-card"><div class="kpi-val"><span class="num-anim" data-val="17088">17,088</span></div><div class="kpi-label">Registros procesados</div><div class="kpi-sub">Sin un solo error</div></div>
       <div class="kpi-card"><div class="kpi-val">0</div><div class="kpi-label">Intervenciones humanas</div><div class="kpi-sub">100% automático</div></div>
     </div>
-
     <div class="time-breakdown reveal" id="tb">
       <div class="tb-title">⏱ Desglose de tiempo — cada etapa</div>
-      <div class="tb-row" data-w="4"><span class="tb-label">📩 Recepción del archivo</span><div class="tb-bar-track"><div class="tb-bar-fill" style="width:0%"></div></div><span class="tb-time">1.2s</span></div>
-      <div class="tb-row" data-w="87"><span class="tb-label">🧠 IA interpreta el archivo</span><div class="tb-bar-track"><div class="tb-bar-fill" style="width:0%"></div></div><span class="tb-time">10.1s</span></div>
-      <div class="tb-row" data-w="3"><span class="tb-label">📦 Optimización de formato</span><div class="tb-bar-track"><div class="tb-bar-fill" style="width:0%"></div></div><span class="tb-time">0.4s</span></div>
-      <div class="tb-row" data-w="87"><span class="tb-label">✅ Validación de calidad</span><div class="tb-bar-track"><div class="tb-bar-fill" style="width:0%"></div></div><span class="tb-time">10.2s</span></div>
-      <div class="tb-row" data-w="73"><span class="tb-label">💾 Consolidación final</span><div class="tb-bar-track"><div class="tb-bar-fill" style="width:0%"></div></div><span class="tb-time">8.5s</span></div>
+      <div class="tb-row" data-w="4"><span class="tb-label">📩 Recepción del archivo</span><div class="tb-bar-track"><div class="tb-bar-fill"></div></div><span class="tb-time">1.2s</span></div>
+      <div class="tb-row" data-w="87"><span class="tb-label">🧠 IA interpreta el archivo</span><div class="tb-bar-track"><div class="tb-bar-fill"></div></div><span class="tb-time">10.1s</span></div>
+      <div class="tb-row" data-w="3"><span class="tb-label">📦 Optimización de formato</span><div class="tb-bar-track"><div class="tb-bar-fill"></div></div><span class="tb-time">0.4s</span></div>
+      <div class="tb-row" data-w="87"><span class="tb-label">✅ Validación de calidad</span><div class="tb-bar-track"><div class="tb-bar-fill"></div></div><span class="tb-time">10.2s</span></div>
+      <div class="tb-row" data-w="73"><span class="tb-label">💾 Consolidación final</span><div class="tb-bar-track"><div class="tb-bar-fill"></div></div><span class="tb-time">8.5s</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ BENEFICIOS ═══ -->
+<!-- BENEFICIOS -->
 <section class="section">
   <div class="section-inner">
     <div class="section-label reveal">Impacto en el negocio</div>
     <h2 class="reveal">Lo que <em>gana Connect</em> con KAI</h2>
     <p class="section-desc reveal">Más que tecnología — es tiempo, confianza y capacidad para crecer.</p>
-
     <div class="benefits-grid">
       <div class="benefit-card"><div class="benefit-card-top"><div class="benefit-icon">⚡</div><h3>Velocidad operativa</h3></div><p>Los datos de cartera están listos en segundos. El equipo comercial consulta información actualizada en tiempo real, sin esperar reportes del día siguiente.</p></div>
       <div class="benefit-card"><div class="benefit-card-top"><div class="benefit-icon">🤖</div><h3>IA que depura sola</h3></div><p>Sin importar cómo envíe el archivo el proveedor, la IA lo entiende y lo adapta. No se necesita intervención técnica para cada nuevo formato.</p></div>
@@ -563,213 +322,201 @@ footer {
   </div>
 </section>
 
-<!-- ═══ INFRAESTRUCTURA ═══ -->
-<section class="section" id="infra" style="background:var(--offwhite)">
+<!-- INFRAESTRUCTURA -->
+<section class="section" id="infra" style="background:var(--cx-offwhite)">
   <div class="section-inner">
     <div class="section-label reveal">Bajo el capó</div>
     <h2 class="reveal">Así funciona la <em>infraestructura completa</em></h2>
-    <p class="section-desc reveal">Haz clic en cualquier componente para entender qué hace. Usa los filtros para ver cada etapa del flujo por separado.</p>
-
-    <!-- FILTER BUTTONS -->
+    <p class="section-desc reveal">Haz clic en cualquier componente para entender qué hace. Usa los filtros para ver cada etapa del flujo.</p>
     <div class="infra-btns reveal" id="infra-btns">
       <button class="infra-btn active" onclick="setInfraMode('all',this)">Todo el flujo</button>
       <button class="infra-btn" onclick="setInfraMode('ingest',this)">Ingesta</button>
       <button class="infra-btn" onclick="setInfraMode('transform',this)">Transformación</button>
       <button class="infra-btn" onclick="setInfraMode('output',this)">Salida de datos</button>
     </div>
-
-    <!-- INFO PANEL -->
     <div class="infra-info reveal" id="infra-info">
       <div class="infra-info-icon" id="ii-icon">🗺️</div>
       <div>
         <div class="infra-info-title" id="ii-title">KAI Data Platform — Infraestructura completa</div>
-        <div class="infra-info-desc" id="ii-desc">Haz clic en cualquier componente del diagrama para ver qué hace dentro del proceso. Usa los botones de arriba para enfocarte en una etapa específica.</div>
+        <div class="infra-info-desc" id="ii-desc">Haz clic en cualquier componente del diagrama para ver qué hace. Usa los botones de arriba para enfocarte en una etapa específica.</div>
       </div>
     </div>
 
     <!-- SVG DIAGRAM -->
     <div class="infra-diagram-wrap reveal">
-      <svg id="infra-svg" width="100%" viewBox="0 0 960 410" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="iarr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </marker>
-      </defs>
+<svg id="infra-svg" width="100%" viewBox="0 0 980 450" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="iarr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
 
-      <!-- ══ ZONA ENTRADA x=10 w=158 h=190 ══ -->
-      <rect x="10" y="60" width="158" height="190" rx="12" fill="#EBF3FC" stroke="#1B4F9B" stroke-width="1" stroke-dasharray="5 3"/>
-      <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1.5" x="89" y="76" text-anchor="middle" fill="#1B4F9B">ENTRADA DE DATOS</text>
+<!-- ══ ZONA ENTRADA ══ -->
+<rect x="10" y="60" width="158" height="200" rx="12" fill="#EBF3FC" stroke="#0B2545" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1.5" x="89" y="76" text-anchor="middle" fill="#0B2545">ENTRADA DE DATOS</text>
 
-      <!-- Email -->
-      <g class="inode" id="in-email" onclick="selectNode('email')" style="cursor:pointer">
-        <rect x="22" y="86" width="134" height="48" rx="9" fill="#B5D4F4" stroke="#1B4F9B" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="89" y="105" text-anchor="middle" fill="#042C53">📩 Buzón corporativo</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="89" y="121" text-anchor="middle" fill="#185FA5">Gmail · DWD</text>
-      </g>
-      <line x1="89" y1="134" x2="89" y2="150" stroke="#378ADD" stroke-width="1.5" marker-end="url(#iarr)" class="iflow"/>
+<g class="inode" id="in-email" onclick="selectNode('email')" style="cursor:pointer">
+  <rect x="22" y="86" width="134" height="48" rx="9" fill="#DDEEFF" stroke="#0B2545" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="89" y="105" text-anchor="middle" fill="#0B2545">📩 Buzón corporativo</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="89" y="121" text-anchor="middle" fill="#163A6B">Gmail · DWD</text>
+</g>
+<line x1="89" y1="134" x2="89" y2="152" stroke="#0B2545" stroke-width="1.5" marker-end="url(#iarr)" class="iflow"/>
 
-      <!-- SFTP -->
-      <g class="inode" id="in-sftp" onclick="selectNode('sftp')" style="cursor:pointer">
-        <rect x="22" y="152" width="134" height="48" rx="9" fill="#B5D4F4" stroke="#1B4F9B" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="89" y="171" text-anchor="middle" fill="#042C53">☁️ AWS S3 / SFTP</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="89" y="187" text-anchor="middle" fill="#185FA5">Proveedores externos</text>
-      </g>
-      <line x1="89" y1="200" x2="89" y2="216" stroke="#378ADD" stroke-width="1.5" marker-end="url(#iarr)" class="iflow"/>
+<g class="inode" id="in-sftp" onclick="selectNode('sftp')" style="cursor:pointer">
+  <rect x="22" y="154" width="134" height="48" rx="9" fill="#DDEEFF" stroke="#0B2545" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="89" y="173" text-anchor="middle" fill="#0B2545">☁️ AWS S3 / SFTP</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="89" y="189" text-anchor="middle" fill="#163A6B">Proveedores externos</text>
+</g>
 
-      <!-- Cloud Workflows -->
-      <g class="inode" id="in-workflows" onclick="selectNode('workflows')" style="cursor:pointer">
-        <rect x="22" y="218" width="134" height="48" rx="9" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="89" y="237" text-anchor="middle" fill="#412402">🔀 Cloud Workflows</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="89" y="253" text-anchor="middle" fill="#854F0B">Orquestación · 2.1s</text>
-      </g>
+<!-- Email → Eventarc1 -->
+<line id="ia-we" x1="156" y1="110" x2="186" y2="110" stroke="#FF6B00" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <!-- Flecha: Email sale por la derecha hacia Eventarc1 -->
-      <line id="ia-we" x1="156" y1="110" x2="188" y2="110" stroke="#F5C300" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
+<!-- Eventarc 1 -->
+<g class="inode" id="in-pubsub" onclick="selectNode('pubsub')" style="cursor:pointer">
+  <rect x="186" y="94" width="86" height="32" rx="16" fill="#FF6B00" stroke="#C45000" stroke-width="1.5"/>
+  <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" x="229" y="107" text-anchor="middle" fill="#fff">⚡ Eventarc</text>
+  <text font-family="Nunito,sans-serif" font-size="8" x="229" y="120" text-anchor="middle" fill="#FFE0C2">Pub · Sub</text>
+</g>
+<!-- Eventarc1 → Bronze AI -->
+<line id="ia-eb" x1="272" y1="110" x2="298" y2="110" stroke="#FF6B00" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <g class="inode" id="in-pubsub" onclick="selectNode('pubsub')" style="cursor:pointer">
-        <rect x="188" y="94" width="86" height="32" rx="16" fill="#0B2545" stroke="#F5C300" stroke-width="1.5"/>
-        <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" x="231" y="107" text-anchor="middle" fill="#F5C300">⚡ Eventarc</text>
-        <text font-family="Nunito,sans-serif" font-size="8" x="231" y="120" text-anchor="middle" fill="#85B7EB">Pub · Sub</text>
-      </g>
+<!-- ══ ZONA BRONZE ══ -->
+<rect x="298" y="60" width="158" height="240" rx="12" fill="#FFF0E0" stroke="#FF6B00" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1.5" x="377" y="76" text-anchor="middle" fill="#FF6B00">CAPA BRONZE</text>
 
-      <!-- Eventarc1 → Semantic AI -->
-      <line id="ia-eb" x1="274" y1="110" x2="298" y2="110" stroke="#F5C300" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
+<g class="inode" id="in-ai" onclick="selectNode('ai')" style="cursor:pointer">
+  <rect x="310" y="86" width="134" height="48" rx="9" fill="#0B2545" stroke="#FF6B00" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="105" text-anchor="middle" fill="#FF8C33">🧠 Semantic AI Engine</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="377" y="121" text-anchor="middle" fill="#FFB370">Normalización · ~10s</text>
+</g>
+<line x1="377" y1="134" x2="377" y2="152" stroke="#FF6B00" stroke-width="1.5" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <!-- ══ ZONA BRONZE x=298 w=158 ══ -->
-      <rect x="298" y="60" width="158" height="230" rx="12" fill="#FEF3DC" stroke="#BA7517" stroke-width="1" stroke-dasharray="5 3"/>
-      <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1.5" x="377" y="76" text-anchor="middle" fill="#854F0B">CAPA BRONZE</text>
+<g class="inode" id="in-parquet" onclick="selectNode('parquet')" style="cursor:pointer">
+  <rect x="310" y="154" width="134" height="48" rx="9" fill="#FFB370" stroke="#FF6B00" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="173" text-anchor="middle" fill="#0B2545">📦 Any-to-Parquet</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="377" y="189" text-anchor="middle" fill="#7A2D00">Snappy · 0.4s · –65%</text>
+</g>
+<line x1="377" y1="202" x2="377" y2="220" stroke="#FF6B00" stroke-width="1.5" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <!-- Semantic AI -->
-      <g class="inode" id="in-ai" onclick="selectNode('ai')" style="cursor:pointer">
-        <rect x="310" y="86" width="134" height="48" rx="9" fill="#633806" stroke="#BA7517" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="105" text-anchor="middle" fill="#FAC775">🧠 Semantic AI Engine</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="377" y="121" text-anchor="middle" fill="#EF9F27">Normalización · ~10s</text>
-      </g>
-      <line x1="377" y1="134" x2="377" y2="150" stroke="#EF9F27" stroke-width="1.5" marker-end="url(#iarr)" class="iflow ifast"/>
+<g class="inode" id="in-md5" onclick="selectNode('md5')" style="cursor:pointer">
+  <rect x="310" y="222" width="134" height="48" rx="9" fill="#FF8C33" stroke="#FF6B00" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="241" text-anchor="middle" fill="#fff">🔐 Verificación MD5</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="377" y="257" text-anchor="middle" fill="#FFE0C2">Idempotencia · sin duplicados</text>
+</g>
 
-      <!-- Any-to-Parquet -->
-      <g class="inode" id="in-parquet" onclick="selectNode('parquet')" style="cursor:pointer">
-        <rect x="310" y="152" width="134" height="48" rx="9" fill="#FAC775" stroke="#BA7517" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="171" text-anchor="middle" fill="#412402">📦 Any-to-Parquet</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="377" y="187" text-anchor="middle" fill="#854F0B">Snappy · 0.4s · –65%</text>
-      </g>
-      <line x1="377" y1="200" x2="377" y2="216" stroke="#EF9F27" stroke-width="1.5" marker-end="url(#iarr)" class="iflow ifast"/>
+<!-- MD5 → GCS Bronze -->
+<line id="ia-mg" x1="377" y1="270" x2="377" y2="330" stroke="#0B2545" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow"/>
 
-      <!-- MD5 -->
-      <g class="inode" id="in-md5" onclick="selectNode('md5')" style="cursor:pointer">
-        <rect x="310" y="218" width="134" height="48" rx="9" fill="#EF9F27" stroke="#BA7517" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="237" text-anchor="middle" fill="#412402">🔐 Verificación MD5</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="377" y="253" text-anchor="middle" fill="#633806">Idempotencia · sin duplicados</text>
-      </g>
+<!-- GCS Bronze -->
+<g class="inode" id="in-gcs" onclick="selectNode('gcs')" style="cursor:pointer">
+  <rect x="310" y="332" width="134" height="48" rx="9" fill="#0B2545" stroke="#163A6B" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="351" text-anchor="middle" fill="#FFB370">🗂️ GCS Bronze</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="377" y="367" text-anchor="middle" fill="#FF8C33">Raw Landing · Parquet</text>
+</g>
 
-      <!-- MD5 → GCS Bronze -->
-      <line id="ia-mg" x1="377" y1="266" x2="377" y2="316" stroke="#185FA5" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow"/>
+<!-- GCS → Eventarc2 -->
+<line id="ia-ge" x1="444" y1="356" x2="472" y2="356" stroke="#FF6B00" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow islow"/>
 
-      <!-- ══ GCS BRONZE ══ -->
-      <g class="inode" id="in-gcs" onclick="selectNode('gcs')" style="cursor:pointer">
-        <rect x="310" y="318" width="134" height="48" rx="9" fill="#0B2545" stroke="#1B4F9B" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="377" y="337" text-anchor="middle" fill="#B5D4F4">🗂️ GCS Bronze</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="377" y="353" text-anchor="middle" fill="#85B7EB">Raw Landing · Parquet</text>
-      </g>
+<!-- Eventarc 2 -->
+<g class="inode" id="in-pubsub2" onclick="selectNode('pubsub')" style="cursor:pointer">
+  <rect x="472" y="340" width="86" height="32" rx="16" fill="#FF6B00" stroke="#C45000" stroke-width="1.5"/>
+  <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" x="515" y="353" text-anchor="middle" fill="#fff">⚡ Eventarc</text>
+  <text font-family="Nunito,sans-serif" font-size="8" x="515" y="366" text-anchor="middle" fill="#FFE0C2">Pub · Sub</text>
+</g>
 
-      <!-- GCS → Eventarc2 -->
-      <line id="ia-ge" x1="444" y1="342" x2="472" y2="342" stroke="#378ADD" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow islow"/>
+<!-- Eventarc2 → Silver (sube) -->
+<line id="ia-es" x1="558" y1="356" x2="578" y2="356" stroke="#FF6B00" stroke-width="2" stroke-dasharray="6 4" class="iflow ifast"/>
+<line id="ia-es2" x1="578" y1="356" x2="578" y2="110" stroke="#FF6B00" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <!-- ══ EVENTARC 2 ══ -->
-      <g class="inode" id="in-pubsub2" onclick="selectNode('pubsub')" style="cursor:pointer">
-        <rect x="472" y="326" width="86" height="32" rx="16" fill="#0B2545" stroke="#F5C300" stroke-width="1.5"/>
-        <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" x="515" y="339" text-anchor="middle" fill="#F5C300">⚡ Eventarc</text>
-        <text font-family="Nunito,sans-serif" font-size="8" x="515" y="352" text-anchor="middle" fill="#85B7EB">Pub · Sub</text>
-      </g>
+<!-- ══ ZONA SILVER & GOLD ══ -->
+<rect x="578" y="60" width="158" height="310" rx="12" fill="#FFF0E0" stroke="#FF6B00" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1.5" x="657" y="76" text-anchor="middle" fill="#FF6B00">SILVER &amp; GOLD</text>
 
-      <!-- Eventarc2 → Silver -->
-      <line id="ia-es" x1="558" y1="342" x2="576" y2="342" stroke="#F5C300" stroke-width="2" stroke-dasharray="6 4" class="iflow ifast"/>
-      <line id="ia-es2" x1="576" y1="342" x2="576" y2="110" stroke="#F5C300" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
+<!-- Cloud Workflows — PRIMERO -->
+<g class="inode" id="in-workflows" onclick="selectNode('workflows')" style="cursor:pointer">
+  <rect x="590" y="86" width="134" height="48" rx="9" fill="#FF6B00" stroke="#C45000" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="657" y="105" text-anchor="middle" fill="#fff">🔀 Cloud Workflows</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="657" y="121" text-anchor="middle" fill="#FFE0C2">Orquestación · 2.1s</text>
+</g>
+<line x1="657" y1="134" x2="657" y2="152" stroke="#FF6B00" stroke-width="1.5" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <!-- ══ ZONA SILVER & GOLD ══ -->
-      <rect x="576" y="60" width="158" height="230" rx="12" fill="#EAF4DC" stroke="#3B6D11" stroke-width="1" stroke-dasharray="5 3"/>
-      <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1.5" x="655" y="76" text-anchor="middle" fill="#3B6D11">SILVER &amp; GOLD</text>
+<!-- Dataform -->
+<g class="inode" id="in-dataform" onclick="selectNode('dataform')" style="cursor:pointer">
+  <rect x="590" y="154" width="134" height="48" rx="9" fill="#FFB370" stroke="#FF6B00" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="657" y="173" text-anchor="middle" fill="#0B2545">⚙️ Dataform</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="657" y="189" text-anchor="middle" fill="#7A2D00">Compilación SQLx · 2.1s</text>
+</g>
+<line x1="657" y1="202" x2="657" y2="220" stroke="#FF6B00" stroke-width="1.5" marker-end="url(#iarr)" class="iflow"/>
 
-      <!-- Dataform -->
-      <g class="inode" id="in-dataform" onclick="selectNode('dataform')" style="cursor:pointer">
-        <rect x="588" y="86" width="134" height="48" rx="9" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="655" y="105" text-anchor="middle" fill="#173404">⚙️ Dataform</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="655" y="121" text-anchor="middle" fill="#3B6D11">Compilación SQLx · 2.1s</text>
-      </g>
-      <line x1="655" y1="134" x2="655" y2="150" stroke="#3B6D11" stroke-width="1.5" marker-end="url(#iarr)" class="iflow"/>
+<!-- Silver Layer -->
+<g class="inode" id="in-silver" onclick="selectNode('silver')" style="cursor:pointer">
+  <rect x="590" y="222" width="134" height="48" rx="9" fill="#FF8C33" stroke="#FF6B00" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="657" y="241" text-anchor="middle" fill="#fff">🔍 Silver Layer</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="657" y="257" text-anchor="middle" fill="#FFE0C2">DQ Assertions · 10.2s</text>
+</g>
+<line x1="657" y1="270" x2="657" y2="288" stroke="#FF6B00" stroke-width="1.5" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <!-- Silver Layer -->
-      <g class="inode" id="in-silver" onclick="selectNode('silver')" style="cursor:pointer">
-        <rect x="588" y="152" width="134" height="48" rx="9" fill="#639922" stroke="#3B6D11" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="655" y="171" text-anchor="middle" fill="#EAF3DE">🔍 Silver Layer</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="655" y="187" text-anchor="middle" fill="#C0DD97">DQ Assertions · 10.2s</text>
-      </g>
-      <line x1="655" y1="200" x2="655" y2="216" stroke="#3B6D11" stroke-width="1.5" marker-end="url(#iarr)" class="iflow ifast"/>
+<!-- Gold Layer -->
+<g class="inode" id="in-gold" onclick="selectNode('gold')" style="cursor:pointer">
+  <rect x="590" y="290" width="134" height="48" rx="9" fill="#0B2545" stroke="#FF6B00" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="657" y="309" text-anchor="middle" fill="#FFB370">🏆 Gold Layer</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="657" y="325" text-anchor="middle" fill="#FF8C33">SCD Tipo 2 · 25s</text>
+</g>
 
-      <!-- Gold Layer -->
-      <g class="inode" id="in-gold" onclick="selectNode('gold')" style="cursor:pointer">
-        <rect x="588" y="218" width="134" height="48" rx="9" fill="#27500A" stroke="#3B6D11" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="655" y="237" text-anchor="middle" fill="#C0DD97">🏆 Gold Layer</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="655" y="253" text-anchor="middle" fill="#97C459">SCD Tipo 2 · 25s</text>
-      </g>
+<!-- Gold → BigQuery -->
+<line id="ia-gb" x1="657" y1="338" x2="657" y2="376" stroke="#0B2545" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow islow"/>
 
-      <!-- Gold → BigQuery -->
-      <line id="ia-gb" x1="655" y1="266" x2="655" y2="316" stroke="#185FA5" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow islow"/>
+<!-- BigQuery -->
+<g class="inode" id="in-bq" onclick="selectNode('bq')" style="cursor:pointer">
+  <rect x="590" y="378" width="134" height="48" rx="9" fill="#163A6B" stroke="#0B2545" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="657" y="397" text-anchor="middle" fill="#FFB370">📊 BigQuery</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="657" y="413" text-anchor="middle" fill="#FF8C33">Almacén analítico · 35s</text>
+</g>
 
-      <!-- ══ BIGQUERY ══ -->
-      <g class="inode" id="in-bq" onclick="selectNode('bq')" style="cursor:pointer">
-        <rect x="588" y="318" width="134" height="48" rx="9" fill="#042C53" stroke="#185FA5" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="655" y="337" text-anchor="middle" fill="#B5D4F4">📊 BigQuery</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="655" y="353" text-anchor="middle" fill="#85B7EB">Almacén analítico · 35s</text>
-      </g>
+<!-- BQ → PostgreSQL -->
+<line id="ia-bp" x1="724" y1="402" x2="752" y2="402" stroke="#FF6B00" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow islow"/>
 
-      <!-- BQ → PostgreSQL -->
-      <line id="ia-bp" x1="722" y1="342" x2="750" y2="342" stroke="#378ADD" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow islow"/>
+<!-- PostgreSQL -->
+<g class="inode" id="in-postgres" onclick="selectNode('postgres')" style="cursor:pointer">
+  <rect x="752" y="378" width="134" height="48" rx="9" fill="#163A6B" stroke="#0B2545" stroke-width="1"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="819" y="397" text-anchor="middle" fill="#FFB370">🐘 PostgreSQL</text>
+  <text font-family="Nunito,sans-serif" font-size="9" x="819" y="413" text-anchor="middle" fill="#FF8C33">Capa de acceso operativo</text>
+</g>
 
-      <!-- ══ POSTGRESQL ══ -->
-      <g class="inode" id="in-postgres" onclick="selectNode('postgres')" style="cursor:pointer">
-        <rect x="750" y="318" width="134" height="48" rx="9" fill="#163A6B" stroke="#378ADD" stroke-width="0.5"/>
-        <text font-family="Nunito,sans-serif" font-size="11" font-weight="800" x="817" y="337" text-anchor="middle" fill="#B5D4F4">🐘 PostgreSQL</text>
-        <text font-family="Nunito,sans-serif" font-size="9" x="817" y="353" text-anchor="middle" fill="#85B7EB">Capa de acceso operativo</text>
-      </g>
+<!-- PostgreSQL → Helios (sube) -->
+<line id="ia-ph" x1="886" y1="402" x2="912" y2="402" stroke="#FF6B00" stroke-width="2" stroke-dasharray="6 4" class="iflow ifast"/>
+<line id="ia-ph2" x1="912" y1="402" x2="912" y2="155" stroke="#FF6B00" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
 
-      <!-- PostgreSQL → Helios -->
-      <line id="ia-ph" x1="884" y1="342" x2="910" y2="342" stroke="#F5C300" stroke-width="2" stroke-dasharray="6 4" class="iflow ifast"/>
-      <line id="ia-ph2" x1="910" y1="342" x2="910" y2="155" stroke="#F5C300" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#iarr)" class="iflow ifast"/>
+<!-- ══ ZONA SALIDA ══ -->
+<rect x="880" y="60" width="72" height="290" rx="12" fill="#FFF0E0" stroke="#FF6B00" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1" x="916" y="76" text-anchor="middle" fill="#FF6B00">SALIDA</text>
 
-      <!-- ══ ZONA SALIDA ══ -->
-      <rect x="880" y="60" width="70" height="230" rx="12" fill="#FEF9E4" stroke="#BA7517" stroke-width="1" stroke-dasharray="5 3"/>
-      <text font-family="Nunito,sans-serif" font-size="9" font-weight="800" letter-spacing="1" x="915" y="76" text-anchor="middle" fill="#BA7517">SALIDA</text>
+<!-- Helios -->
+<g class="inode" id="in-helios" onclick="selectNode('helios')" style="cursor:pointer">
+  <rect x="893" y="86" width="46" height="250" rx="9" fill="#FF6B00" stroke="#C45000" stroke-width="1.5"/>
+  <text font-family="Nunito,sans-serif" font-size="11" font-weight="900" x="916" y="211" text-anchor="middle" fill="#fff" transform="rotate(-90,916,211)">☀️ Helios — Visualización Connect</text>
+</g>
 
-      <!-- Helios -->
-      <g class="inode" id="in-helios" onclick="selectNode('helios')" style="cursor:pointer">
-        <rect x="892" y="86" width="46" height="190" rx="9" fill="#F5C300" stroke="#BA7517" stroke-width="1"/>
-        <text font-family="Nunito,sans-serif" font-size="12" font-weight="900" x="915" y="181" text-anchor="middle" fill="#0B2545" transform="rotate(-90,915,181)">☀️ Helios — Visualización Connect</text>
-      </g>
-
-      </svg>
+</svg>
     </div>
 
-    <!-- LEGEND -->
     <div class="infra-legend reveal">
-      <div class="ileg"><span class="ileg-dot" style="background:#B5D4F4;border:1px solid #1B4F9B"></span>Canales de entrada</div>
-      <div class="ileg"><span class="ileg-dot" style="background:#EF9F27;border:1px solid #BA7517"></span>Capa Bronze</div>
-      <div class="ileg"><span class="ileg-dot" style="background:#97C459;border:1px solid #3B6D11"></span>Silver &amp; Gold</div>
-      <div class="ileg"><span class="ileg-dot" style="background:#0B2545;border:1px solid #1B4F9B"></span>Almacenamiento / Salida</div>
-      <div class="ileg"><span style="display:inline-block;width:24px;height:2px;background:#F5C300;vertical-align:middle;margin-right:6px"></span>Flujo de datos activo</div>
+      <div class="ileg"><span class="ileg-dot" style="background:#DDEEFF;border:1px solid #0B2545"></span>Canales de entrada</div>
+      <div class="ileg"><span class="ileg-dot" style="background:#FFB370;border:1px solid #FF6B00"></span>Capa Bronze</div>
+      <div class="ileg"><span class="ileg-dot" style="background:#FF8C33;border:1px solid #FF6B00"></span>Silver &amp; Gold</div>
+      <div class="ileg"><span class="ileg-dot" style="background:#163A6B;border:1px solid #0B2545"></span>Almacenamiento / Salida</div>
+      <div class="ileg"><span style="display:inline-block;width:24px;height:2px;background:#FF6B00;vertical-align:middle;margin-right:6px"></span>Flujo de datos activo</div>
     </div>
-
   </div>
 </section>
 
-<!-- ═══ CTA CIERRE ═══ -->
+<!-- CTA -->
 <section class="cta-section">
   <div class="cta-logo">connect</div>
   <h2>Datos más rápidos.<br>Decisiones más inteligentes.</h2>
   <p>KAI Pipelines v3.0 — Ingeniería de Datos · Connect · Marzo 2026</p>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <span class="footer-logo">connect<span>.</span></span>
   <span>KAI Data Platform v3.0 · Documentación interna · CONFIDENCIAL</span>
@@ -777,94 +524,82 @@ footer {
 </footer>
 
 <script>
-// ── INTERSECTION OBSERVER ──
 const io = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      const el = e.target;
-      if (el.classList.contains('problem-grid') || el.classList.contains('benefits-grid')) {
-        el.querySelectorAll('.problem-card, .benefit-card').forEach((c, idx) => {
-          setTimeout(() => c.classList.add('visible'), idx * 120);
-        });
-      } else if (el.classList.contains('kpi-grid')) {
-        el.querySelectorAll('.kpi-card').forEach((c, idx) => {
-          setTimeout(() => {
-            c.classList.add('visible');
-            c.querySelectorAll('.num-anim').forEach(n => animNum(n));
-          }, idx * 150);
-        });
-      } else if (el.id === 'tb') {
-        el.querySelectorAll('.tb-row').forEach((r, idx) => {
-          setTimeout(() => {
-            r.classList.add('visible');
-            const fill = r.querySelector('.tb-bar-fill');
-            if (fill) fill.style.width = r.dataset.w + '%';
-          }, idx * 200 + 300);
-        });
-      } else {
-        el.classList.add('visible');
-      }
-      io.unobserve(el);
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    if (el.classList.contains('problem-grid') || el.classList.contains('benefits-grid')) {
+      el.querySelectorAll('.problem-card,.benefit-card').forEach((c,i) => setTimeout(() => c.classList.add('visible'), i*120));
+    } else if (el.classList.contains('kpi-grid')) {
+      el.querySelectorAll('.kpi-card').forEach((c,i) => setTimeout(() => {
+        c.classList.add('visible');
+        c.querySelectorAll('.num-anim').forEach(n => animNum(n));
+      }, i*150));
+    } else if (el.id === 'tb') {
+      el.querySelectorAll('.tb-row').forEach((r,i) => setTimeout(() => {
+        r.classList.add('visible');
+        const f = r.querySelector('.tb-bar-fill');
+        if(f) f.style.width = r.dataset.w + '%';
+      }, i*200+300));
+    } else {
+      el.classList.add('visible');
     }
+    io.unobserve(el);
   });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+}, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
 
-document.querySelectorAll('.reveal, h2, .section-label, .problem-grid, .kpi-grid, .benefits-grid, #tb').forEach(el => io.observe(el));
+document.querySelectorAll('.reveal,h2,.section-label,.problem-grid,.kpi-grid,.benefits-grid,#tb').forEach(el => io.observe(el));
 
 const stepObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.step-item').forEach((s, i) => {
-        setTimeout(() => s.classList.add('visible'), i * 150);
-      });
-      stepObs.unobserve(e.target);
-    }
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.step-item').forEach((s,i) => setTimeout(() => s.classList.add('visible'), i*150));
+    stepObs.unobserve(e.target);
   });
-}, { threshold: 0.2 });
+}, {threshold:0.2});
 document.querySelectorAll('.steps-visual').forEach(el => stepObs.observe(el));
 
-// ── INFRA DIAGRAM ──
 const infraInfo = {
-  email:     { icon:'📩', title:'Buzón corporativo — DWD Impersonation', desc:'KAI monitorea buzones de Gmail con permisos de solo lectura. Cuando llega un correo con una cartera adjunta, se dispara automáticamente el proceso — sin que nadie tenga que hacer nada.', color:'#1B4F9B' },
-  sftp:      { icon:'☁️', title:'AWS S3 / SFTP — Transferencia masiva', desc:'Proveedores externos depositan archivos en buckets de AWS. KAI sincroniza hacia Google Cloud automáticamente, desacoplado de los sistemas del proveedor para no interferir con su operación.', color:'#1B4F9B' },
-  pubsub:    { icon:'⚡', title:'Eventarc / Pub·Sub — Conector entre zonas', desc:'Actúa como puente inteligente entre zonas del flujo. Detecta cuando llega un archivo nuevo (Entrada → Bronze) y también cuando Bronze termina de procesar (Bronze → Silver). No hay horarios — todo se activa solo cuando hay datos.', color:'#F5C300' },
-  dataform:  { icon:'⚙️', title:'Dataform — Motor de transformación de negocio', desc:'Compila las reglas de negocio en SQLx y genera el plan de transformaciones. En 2.1 segundos construye el grafo de pasos que convertirán los datos crudos en información de calidad para el negocio.', color:'#3B6D11' },
-  workflows: { icon:'🔀', title:'Cloud Workflows — Director de orquestación', desc:'Coordina cada paso del flujo en orden y valida que cada etapa fue exitosa antes de continuar. Si algo falla, detiene todo y emite una alerta. Garantiza que ningún dato parcial llegue a la base de datos.', color:'#BA7517' },
-  md5:       { icon:'🔐', title:'Verificación MD5 — Protección contra duplicados', desc:'Antes de procesar, calcula la huella digital del archivo. Si ya fue procesado antes, lo descarta sin consumir recursos. Cada archivo se procesa exactamente una vez, sin importar cuántas veces llegue.', color:'#BA7517' },
-  ai:        { icon:'🧠', title:'Semantic AI Engine — El corazón de KAI', desc:'La IA interpreta el esquema de cualquier archivo en ~10 segundos. Sin importar cómo lo envíe el proveedor, la IA lo entiende y lo convierte al estándar de Connect. No se necesita código extra para nuevos formatos.', color:'#BA7517' },
-  parquet:   { icon:'📦', title:'Any-to-Parquet — Optimización de almacenamiento', desc:'Convierte cualquier formato (CSV, Excel, JSON) a Parquet comprimido con Snappy. El archivo resultante ocupa un 65% menos espacio y las consultas en BigQuery son 5× más rápidas.', color:'#BA7517' },
-  gcs:       { icon:'🗂️', title:'GCS Bronze — Primera zona de persistencia', desc:'El archivo normalizado y comprimido se guarda aquí. Es el primer punto de almacenamiento permanente. Sirve como respaldo de auditoría y como punto de partida para las capas de calidad de datos.', color:'#185FA5' },
-  silver:    { icon:'🔍', title:'Silver Layer — Control de calidad de datos', desc:'Aplica más de 20 reglas de validación: unicidad de contratos, formatos válidos de teléfonos y correos, fechas coherentes. También clasifica automáticamente el ramo de cada póliza (AUTO, MASCOTAS, HOME). Duración: ~10.2s.', color:'#3B6D11' },
-  gold:      { icon:'🏆', title:'Gold Layer — Fuente única de verdad', desc:'Consolida el historial completo de cada contrato a través del tiempo. Si un campo cambia, guarda la versión anterior con su fecha de vigencia. Podés consultar el estado exacto de cualquier cartera en cualquier fecha pasada.', color:'#3B6D11' },
-  bq:        { icon:'📊', title:'BigQuery — Motor analítico de alto rendimiento', desc:'El almacén de datos de Google Cloud. Procesa millones de registros en segundos usando columnas Parquet optimizadas. Los datos en Gold están disponibles aquí para reportes, dashboards y decisiones de negocio.', color:'#185FA5' },
-  postgres:  { icon:'🐘', title:'PostgreSQL — Capa de acceso operativo', desc:'BigQuery exporta los datos consolidados hacia PostgreSQL, una base de datos relacional que permite acceso rápido y flexible a los datos por parte de sistemas operativos internos. Es el puente entre el almacén analítico y las aplicaciones que usan los datos en tiempo real.', color:'#163A6B' },
-  helios:    { icon:'☀️', title:'Helios — Visualización para el equipo Connect', desc:'Helios es la plataforma donde el equipo Connect visualiza la data de cartera procesada por KAI. Con los datos fluyendo desde PostgreSQL, Helios muestra reportes, dashboards y métricas actualizadas — el punto final donde la tecnología se convierte en decisiones de negocio.', color:'#BA7517' }
+  email:    {icon:'📩',title:'Buzón corporativo — DWD Impersonation',desc:'KAI monitorea buzones de Gmail con permisos de solo lectura. Cuando llega un correo con una cartera adjunta, se dispara automáticamente el proceso — sin que nadie tenga que hacer nada.',color:'#0B2545'},
+  sftp:     {icon:'☁️',title:'AWS S3 / SFTP — Transferencia masiva',desc:'Proveedores externos depositan archivos en buckets de AWS. KAI sincroniza hacia Google Cloud automáticamente, desacoplado de los sistemas del proveedor.',color:'#0B2545'},
+  pubsub:   {icon:'⚡',title:'Eventarc / Pub·Sub — Conector entre zonas',desc:'Actúa como puente inteligente entre zonas del flujo. Detecta cuando llega un archivo nuevo (Entrada → Bronze) y también cuando Bronze termina de procesar (Bronze → Silver). No hay horarios — todo se activa solo cuando hay datos.',color:'#FF6B00'},
+  workflows:{icon:'🔀',title:'Cloud Workflows — Director de orquestación',desc:'Coordina cada paso del flujo en orden y valida que cada etapa fue exitosa antes de continuar. Si algo falla, detiene todo y emite una alerta. Garantiza que ningún dato parcial llegue a la base de datos.',color:'#FF6B00'},
+  ai:       {icon:'🧠',title:'Semantic AI Engine — El corazón de KAI',desc:'La IA interpreta el esquema de cualquier archivo en ~10 segundos. Sin importar cómo lo envíe el proveedor, la IA lo entiende y lo convierte al estándar de Connect. No se necesita código extra para nuevos formatos.',color:'#FF6B00'},
+  parquet:  {icon:'📦',title:'Any-to-Parquet — Optimización de almacenamiento',desc:'Convierte cualquier formato (CSV, Excel, JSON) a Parquet comprimido con Snappy. El archivo resultante ocupa un 65% menos espacio y las consultas en BigQuery son 5× más rápidas.',color:'#FF6B00'},
+  md5:      {icon:'🔐',title:'Verificación MD5 — Protección contra duplicados',desc:'Antes de procesar, calcula la huella digital del archivo. Si ya fue procesado antes, lo descarta sin consumir recursos. Cada archivo se procesa exactamente una vez.',color:'#FF6B00'},
+  gcs:      {icon:'🗂️',title:'GCS Bronze — Primera zona de persistencia',desc:'El archivo normalizado y comprimido se guarda aquí. Es el primer punto de almacenamiento permanente. Sirve como respaldo de auditoría y punto de partida para las capas de calidad.',color:'#0B2545'},
+  dataform: {icon:'⚙️',title:'Dataform — Motor de transformación SQLx',desc:'Compila las reglas de negocio en SQLx y genera el plan de transformaciones. En 2.1 segundos construye el grafo de pasos que convertirán los datos crudos en información de calidad para el negocio.',color:'#FF8C33'},
+  silver:   {icon:'🔍',title:'Silver Layer — Control de calidad de datos',desc:'Aplica más de 20 reglas de validación: unicidad de contratos, formatos válidos de teléfonos y correos, fechas coherentes. También clasifica automáticamente el ramo de cada póliza (AUTO, MASCOTAS, HOME). ~10.2s.',color:'#FF6B00'},
+  gold:     {icon:'🏆',title:'Gold Layer — Fuente única de verdad',desc:'Consolida el historial completo de cada contrato. Si un campo cambia, guarda la versión anterior con su fecha de vigencia. Podés consultar el estado exacto de cualquier cartera en cualquier fecha pasada.',color:'#0B2545'},
+  bq:       {icon:'📊',title:'BigQuery — Motor analítico de alto rendimiento',desc:'El almacén de datos de Google Cloud. Procesa millones de registros en segundos usando columnas Parquet optimizadas. Los datos en Gold están disponibles aquí para reportes y decisiones.',color:'#163A6B'},
+  postgres: {icon:'🐘',title:'PostgreSQL — Capa de acceso operativo',desc:'BigQuery exporta los datos consolidados hacia PostgreSQL, una base de datos relacional que permite acceso rápido a los datos por sistemas operativos internos. Puente entre el almacén analítico y las apps en tiempo real.',color:'#163A6B'},
+  helios:   {icon:'☀️',title:'Helios — Visualización para el equipo Connect',desc:'Helios es la plataforma donde el equipo Connect visualiza la data de cartera procesada por KAI. Con los datos fluyendo desde PostgreSQL, Helios muestra reportes, dashboards y métricas actualizadas en tiempo real.',color:'#FF6B00'}
 };
 
-const allIFlows       = ['ia-we','ia-eb','ia-mg','ia-ge','ia-es','ia-es2','ia-gb','ia-bp','ia-ph','ia-ph2'];
-const ingestIFlows    = ['ia-we','ia-eb','ia-mg'];
-const transformIFlows = ['ia-ge','ia-es','ia-es2','ia-gb'];
-const outputIFlows    = ['ia-bp','ia-ph','ia-ph2'];
+const allFlows       = ['ia-we','ia-eb','ia-mg','ia-ge','ia-es','ia-es2','ia-gb','ia-bp','ia-ph','ia-ph2'];
+const ingestFlows    = ['ia-we','ia-eb','ia-mg'];
+const transformFlows = ['ia-ge','ia-es','ia-es2','ia-gb'];
+const outputFlows    = ['ia-bp','ia-ph','ia-ph2'];
 
 function setInfraMode(mode, btn) {
   document.querySelectorAll('.infra-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const active = mode==='ingest' ? ingestIFlows : mode==='transform' ? transformIFlows : mode==='output' ? outputIFlows : allIFlows;
-  allIFlows.forEach(id => {
+  const active = mode==='ingest' ? ingestFlows : mode==='transform' ? transformFlows : mode==='output' ? outputFlows : allFlows;
+  allFlows.forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.classList.toggle('ipaused', !active.includes(id));
+    if(el) el.classList.toggle('ipaused', !active.includes(id));
   });
   document.getElementById('ii-icon').textContent = '🗺️';
   document.getElementById('ii-title').textContent = 'KAI Data Platform — Infraestructura completa';
-  document.getElementById('ii-desc').textContent = mode==='ingest' ? 'Flujo de ingesta: desde que llega el archivo hasta que aterriza en Bronze.' : mode==='transform' ? 'Flujo de transformación: de Bronze a Silver y Gold en BigQuery.' : mode==='output' ? 'Flujo de salida: datos listos para reportes y decisiones de negocio.' : 'Haz clic en cualquier componente del diagrama para ver qué hace.';
-  document.getElementById('infra-info').style.borderLeftColor = '#1B4F9B';
+  document.getElementById('ii-desc').textContent = mode==='ingest'?'Flujo de ingesta: desde que llega el archivo hasta que aterriza en Bronze.':mode==='transform'?'Flujo de transformación: de Bronze a Silver y Gold en BigQuery.':mode==='output'?'Flujo de salida: datos listos para reportes y decisiones de negocio.':'Haz clic en cualquier componente del diagrama para ver qué hace.';
+  document.getElementById('infra-info').style.borderLeftColor = '#FF6B00';
 }
 
 function selectNode(id) {
   document.querySelectorAll('.inode').forEach(g => g.classList.remove('iselected'));
   const g = document.getElementById('in-'+id);
-  if (g) g.classList.add('iselected');
-  const d = infraInfo[id]; if (!d) return;
+  if(g) g.classList.add('iselected');
+  const d = infraInfo[id]; if(!d) return;
   document.getElementById('ii-icon').textContent  = d.icon;
   document.getElementById('ii-title').textContent = d.title;
   document.getElementById('ii-desc').textContent  = d.desc;
@@ -875,14 +610,12 @@ document.querySelectorAll('#infra .reveal').forEach(el => io.observe(el));
 
 function animNum(el) {
   const target = parseInt(el.dataset.val);
-  const dur = 1200;
-  const t0 = performance.now();
+  const dur = 1200, t0 = performance.now();
   function step(t) {
-    const p = Math.min((t - t0) / dur, 1);
-    const ease = 1 - Math.pow(1 - p, 3);
-    const val = Math.round(ease * target);
-    el.textContent = val.toLocaleString('es-CR');
-    if (p < 1) requestAnimationFrame(step);
+    const p = Math.min((t-t0)/dur, 1);
+    const ease = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.round(ease*target).toLocaleString('es-CR');
+    if(p < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
